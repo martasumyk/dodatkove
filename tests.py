@@ -2,22 +2,33 @@
 Module for testing classes.
 '''
 from main import *
+
 def test_StudentsClass():
     '''
     Tests classes.
     '''
+    print('Testing UCU classes...')
     #First we'll test simple class to create person:
     person = Person('Bohdan', 'Borkivskyy')
     assert str(person) == 'Hello, Bohdan!'
 
     #Let's create some programs!
+    #All subjects have points 0 by default:
     cs = Program('CS', {'Discrete Math' : 0, 'Math Analysis' : 0, 'OP' : 0})
+    ba = Program('BA', {'Econom analysis' : 0, 'Math Analysis' : 0, 'OP' : 0})
 
-    #Than let`s create a student - a person, who also has subjects:
+    assert str(ba) == "BA program has such subjects: ['Econom analysis', 'Math Analysis', 'OP']."
+
+    #Than let`s create a student - a person, who also has subjects of different program:
     student1 = Student('Marta', 'Sumyk', cs)
+
+    assert isinstance(student1, Person) == True
+    assert isinstance(student1, Student) == True
     #Now let`s add some subjects and grades:
     student1.program.subjects['OP'] = 80
     student1.program.subjects['Discrete Math'] = 59
+
+    #Also we can add subjects that are not from a program`s list:
     student1.program.subjects['History'] = 55
     assert len(student1.program.subjects) == 4
     #Now we will test if student has talons:
@@ -55,10 +66,11 @@ def test_StudentsClass():
     cs_group.add_student(student8)
 
     assert len(cs_group.students) == 8
+
+    #By method 'delete_students()' we can delete students that have 3 or more talons:
     cs_group.delete_students()
     assert len(cs_group.students) == 4
     print('Done!')
-
 
 
 if __name__ == '__main__':
