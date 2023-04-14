@@ -18,24 +18,32 @@ class Person:
         '''
         return f'Hello, {self.name}!'
 
+class Program:
+    '''
+    Class of Program
+    '''
+    def __init__(self, name, subjects : dict) -> None:
+        self.name = name
+        self.subjects = subjects
+
 
 class Student(Person):
     '''
     Class to create a student.
     '''
-    def __init__(self, name, surname):
+    def __init__(self, name, surname, program : Program, talons = 0):
         '''
         Initialize the data.
         '''
         super().__init__(name, surname)
-        self.subjects = dict()
-        self.talons = 0
+        self.program = program
+        self.talons = talons
 
     def test_talon(self):
         '''
         Tests if person has talons.
         '''
-        for i in self.subjects.items():
+        for i in self.program.subjects.items():
             if i[1] < 60:
                 self.talons += 1
         if self.talons == 0:
@@ -46,14 +54,14 @@ class Student(Person):
         '''
         Adds subject to the student`s list.
         '''
-        self.subjects[subject] = grade
+        self.program.subjects[subject] = grade
 
     def add_task(self, task):
         '''
         Adds the task to a student - if it`s correct student gain points.
         '''
         if task.correct:
-            self.subjects[task.subject] += task.weight
+            self.program.subjects[task.subject] += task.weight
         else:
             return f'The task was done incorrect.'
 
@@ -106,5 +114,3 @@ class Group:
                 if student.talons >= 3:
                     self.students.remove(student)
         return f'We have {len(self.students)} students left.'
-
-
