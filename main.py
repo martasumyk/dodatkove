@@ -19,13 +19,14 @@ class Person:
 
     @fullname.setter
     def fullname(self, value: str):
-        if not isinstance(value, str):
-            raise TypeError("Fullname must be str")
+        try:
+            if len(value.split(' ')) != 2:
+                raise ValueError("Fullname must consist of 2 words: name and surname")
 
-        if len(value.split(' ')) != 2:
-            raise ValueError("Fullname must consist of 2 words: name and surname")
+            self.name, self.surname = value.split(' ')
+        except AttributeError as exc:
+            raise TypeError("Fullname must be str") from exc
 
-        self.name, self.surname = value.split(' ')
 
     def __str__(self):
         '''
