@@ -91,6 +91,12 @@ class Grades(dict):
         '''
         self[task.subject] += task.weight
 
+    def get_average(self):
+        '''
+        get average grade
+        '''
+        return sum(self.values()) / len(self.values())
+
 
     @staticmethod
     def to_ECTS_grading(grade: int) -> str:
@@ -158,6 +164,12 @@ class Student(Person):
             self.grades.add_task(task)
         else:
             return 'The task was done incorrect.'
+
+    def get_average_grade(self) -> int:
+        '''
+        get student's average grade
+        '''
+        return round(self.grades.get_average(), 2)
 
     def get_ECTS_grades(self):
         '''
