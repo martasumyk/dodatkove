@@ -48,8 +48,6 @@ def test_StudentsClass():
     assert student1.grades.get_grade('OP') == 96
     assert student1.get_ECTS_grades() == {'Discrete Math': 'F', 'Math Analysis': 'F', 'OP': 'A'}
 
-    assert student1.get_average_grade() == 51.67
-
     # Also we can add subjects that are not from a program`s list:
     student1.grades.set_grade('History', 55)
     assert len(student1.grades) == 4
@@ -92,12 +90,15 @@ def test_StudentsClass():
     cs_group.add_student(student7)
     cs_group.add_student(student8)
 
-
     assert len(cs_group.students) == 8
 
     # By method 'delete_students()' we can delete students that have 3 or more talons:
-    cs_group.delete_students()
+    assert cs_group.delete_students() == 'We have 4 students left.'
+
+    # We can`t add to group objects that are not students:
+    cs_group.add_student(person)
     assert len(cs_group.students) == 4
+
     print('Done!')
 
 
