@@ -48,6 +48,8 @@ def test_StudentsClass():
     assert student1.grades.get_grade('OP') == 96
     assert student1.get_ECTS_grades() == {'Discrete Math': 'F', 'Math Analysis': 'F', 'OP': 'A'}
 
+    assert student1.get_average_grade() == 51.67
+
     # Also we can add subjects that are not from a program`s list:
     student1.grades.set_grade('History', 55)
     assert len(student1.grades) == 4
